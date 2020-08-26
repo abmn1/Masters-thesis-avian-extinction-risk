@@ -647,9 +647,9 @@ hist(mastersdata$HWIndex)
 hist(mastersdata$SpecGenFinalMass, xlim=c(0,6000))
 hist(mastersdata$Range_Size, xlim=c(-2000,4000))
 
-mastersdata<-read.csv("mastersdataanalysis.csv")
 
 # Check correlated variables
+mastersdata <- mastersdata %>% drop_na(Habitat, HWIndex, Bill.Width, Migration, Habitat, Body.Mass, SexualSelectionUnidirectional, Territory.2016)
 cor.test(mastersdataagri$lgGenLength, mastersdataagri$lgBody.Mass) #Discard Generation Length from analysis
 cor.test(mastersdata$Bill_Width, mastersdata$Gape_width, method=c("pearson"))#Discard Gape Width from analysis
 cor.test(mastersdataagri$lgBill_Width, mastersdataagri$lgBody.Mass, method=c("pearson"))
@@ -657,6 +657,9 @@ cor.test(mastersdataagri$HWI, mastersdataagri$lgBody.Mass, method=c("pearson"))
 
 str(mastersdata)
 table(mastersdata)
+
+# Read in dataset.
+mastersdata<-read.csv("mastersdataanalysis.csv")
 
 # Prepare dataset by labelling variables and classifying categorical variables as factors.
 mastersdata$Primary_Foraging_strata_1 <- as.factor(mastersdata$Primary_Foraging_strata_1)
